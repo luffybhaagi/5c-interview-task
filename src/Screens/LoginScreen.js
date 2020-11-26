@@ -1,11 +1,14 @@
 import { Text, Input, Item, Label, Toast } from "native-base";
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
 import ButtonWithTxt from "../CommonUtils/ButtonWithTxt";
+import { signIn } from "../Server/Api";
 import { Colors } from "../Styles/AppStyles";
 
 export default function LoginScreen({ navigation }) {
  
+  const dispatch=useDispatch()
   const [loading, setLoading] = useState(false);
   const [credential, setCredential] = useState({
     email: "T@gmail.com",
@@ -50,7 +53,8 @@ export default function LoginScreen({ navigation }) {
         type: "danger",
       });
     } else {
-          navigation.navigate("Tabs")
+          // navigation.navigate("Tabs")
+          signIn(credential, dispatch, navigation, setLoading)
     }
   };
 
