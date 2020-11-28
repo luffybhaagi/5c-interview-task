@@ -130,12 +130,12 @@ export default function CameraPageScreen({route,navigation}) {
     );
   };
   const cancelPreview = async () => {
-    stopVideoRecording()
+    // stopVideoRecording()
     // setIsPreview(false);
-    setVideoSource(null);
+    // setVideoSource(null);
     //set list to null on cancel
-    dispatch(storeUriListAction([]))
-    navigation.navigate("Home")
+    // dispatch(storeUriListAction([]))
+    navigation.navigate("Document")
   };
 
   const succesPreview = async () => {

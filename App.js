@@ -18,7 +18,7 @@ export default function App() {
   useEffect(() => {
     (async () => {
       await Camera.requestPermissionsAsync();
-      await Audio.requestPermissionsAsync();
+      // await Audio.requestPermissionsAsync();
     })();
   }, []);
 

@@ -26,6 +26,7 @@ import {
   MaterialCommunityIcons,
   EvilIcons,
   Ionicons,
+  Foundation
 } from "@expo/vector-icons";
 import { Appbar } from "react-native-paper";
 import moment from "moment";
@@ -105,21 +106,21 @@ const Item2 = ({ item, navigation }) => {
               </View>
               <View style={styles.container4}>
                 <View style={styles.container5}>
-                  <Ionicons
-                    name="female"
-                    size={18}
-                  />
+                <Foundation name={item.gender === "M" ? "male-symbol":"female-symbol"} size={18} color="black" />
                   <Text style={styles.textStyle2}>{item.gender}</Text>
                 </View>
                 <View style={styles.container6}>
+                <MaterialCommunityIcons name="target" size={18} color="black" />
                   <Text style={styles.textStyle3}>{item.priority}</Text>
                 </View>
               </View>
               <View style={styles.container4}>
                 <View style={styles.container5}>
+                <Entypo name="text-document" size={18} color="black" />
                   <Text style={styles.textStyle2}>{item.modality}</Text>
                 </View>
                 <View style={styles.container6}>
+                <FontAwesome5 name="microscope" size={18} color="black" />
                   <Text style={styles.textStyle3}>{item.study}</Text>
                 </View>
               </View>
@@ -234,6 +235,8 @@ const styles = StyleSheet.create({
   },
   container5: {
     width: "50%",
+    flexDirection:"row",
+    alignItems:"center"
   },
   container6: {
     width: "50%",
@@ -251,6 +254,8 @@ const styles = StyleSheet.create({
   },
   container7: {
     width: "80%",
+    flexDirection:"row",
+    alignItems:"center"
   },
   documentsContainer: {
     flexDirection: "row",

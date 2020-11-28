@@ -25,7 +25,7 @@ export default function DetailsBottomNavigator(){
         }}
       /> 
         <Tab.Screen
-        name="Doument"
+        name="Document"
         component={DocumentsScreen}
         options={{
           

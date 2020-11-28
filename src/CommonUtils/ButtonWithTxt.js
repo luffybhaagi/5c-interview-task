@@ -5,9 +5,9 @@ import { Colors } from '../Styles/AppStyles'
 
 
 
-export default function ButtonWithTxt({text, press,containerStyle,textUpperCase}) {
+export default function ButtonWithTxt({text, press,textUpperCase}) {
     return(
-        <TouchableOpacity style={containerStyle} 
+        <TouchableOpacity style={{   marginTop:"20%",flexDirection:"row"}} 
                 onPress={press}>
             <Button onPress={press} rounded style={ styles.buttonStyle } >
                 <Text uppercase={textUpperCase} style={ styles.logTextStyle }>{text}</Text>
@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
 
     buttonStyle:{
        backgroundColor:Colors.secondaryColor.blue,
-       width:"30%",
-    //    justifyContent:"center",
-    //    alignContent:"center",
+       width:"40%",
+       justifyContent:"center",
+       alignContent:"center",
    },
     logTextStyle:{
         fontWeight:"900",

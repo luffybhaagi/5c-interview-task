@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 export default function Navigations(){
     return(
     <NavigationContainer>
-        <Stack.Navigator headerMode="none" initialRouteName="Details" >
+        <Stack.Navigator headerMode="none" initialRouteName="LoginScreen" >
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="Tabs" component={BottomNavigator}/>
         <Stack.Screen name="ActiveStudies" component={ActiveStudies} />
