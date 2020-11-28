@@ -39,7 +39,7 @@ export const getActiveList = (dispatch, setLoading) => {
   fetch(`${host}studies/activeList`, requestOptions)
     .then((response) => response.text())
     .then((result) => {
-      dispatch(ActivityDataAction(JSON.parse(result)));
+      dispatch(ActivityDataAction(JSON.parse(result).studies));
       setLoading(false);
     })
     .catch((error) => {

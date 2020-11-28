@@ -88,6 +88,8 @@ export default function LoginScreen({ navigation }) {
           credential={credential}
           setCredential={setCredential}
           press={handleSubmit}
+          containerStyle={ styles.loginContainer }
+          textUpperCase={false}
         />
       </View>
     </>
@@ -134,4 +136,8 @@ const styles = StyleSheet.create({
   lineWidth: {
     width: "60%",
   },
+  loginContainer:{
+    marginTop:"30%",
+    flexDirection:"row"
+  }
 });

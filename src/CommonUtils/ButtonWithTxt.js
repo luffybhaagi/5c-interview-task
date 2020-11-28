@@ -5,12 +5,12 @@ import { Colors } from '../Styles/AppStyles'
 
 
 
-export default function ButtonWithTxt({text, press}) {
+export default function ButtonWithTxt({text, press,containerStyle,textUpperCase}) {
     return(
-        <TouchableOpacity style={{ marginTop:"30%", flexDirection:'row'}} 
+        <TouchableOpacity style={containerStyle} 
                 onPress={press}>
-            <Button onPress={press} rounded style={ styles.buttonStyle }>
-                <Text style={ styles.logTextStyle }>{text}</Text>
+            <Button onPress={press} rounded style={ styles.buttonStyle } >
+                <Text uppercase={textUpperCase} style={ styles.logTextStyle }>{text}</Text>
             </Button>   
         </TouchableOpacity>
     )
@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
 
     buttonStyle:{
        backgroundColor:Colors.secondaryColor.blue,
-       width:"50%",
-       justifyContent:"center",
-       alignContent:"center",
+       width:"30%",
+    //    justifyContent:"center",
+    //    alignContent:"center",
    },
     logTextStyle:{
         fontWeight:"900",

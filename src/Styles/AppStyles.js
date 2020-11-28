@@ -21,4 +21,14 @@ export const Colors ={
     cardBackGroundColor:{
         color:"#F7F7F8"
     },
+    activeStudiesBlueText:{
+        blue:"#0D7DF4"
+    },
+    infoScreenColors:{
+        headerColor:"#9e9e9e",
+        discription:"#000000"
+    },
+    captureVideoColor:{
+        blue:"#11B8F5"
+    }
 }

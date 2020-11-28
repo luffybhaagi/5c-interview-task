@@ -1,4 +1,4 @@
-import { Activity_Data, Get_Case_Data, Get_Image_Id, Sign_In_Data } from "./GlobalActions"
+import { Activity_Data, Get_Case_Data, Get_Image_Id, Selected_Card, Sign_In_Data } from "./GlobalActions"
 
 
 export const SignInDataAction=(data)=>{
@@ -29,11 +29,19 @@ export const ImageIDAction=(data)=>{
     }
 }
 
+export const SelectedCardAction=(data)=>{
+    return {
+        type:Selected_Card,
+        payload:data
+    }
+}
+
 const initialState={
     user:{},
     activity:{},
     caseDetail:{},
-    imageResponse:{}
+    imageResponse:{},
+    selectedCard:{}
 }
 
 const ActivityReducer=(state=initialState,action)=>{
@@ -57,6 +65,11 @@ const ActivityReducer=(state=initialState,action)=>{
             return {
                 ...state,
                 imageResponse:action.payload
+            }
+        case Selected_Card:
+            return{
+                ...state,
+                selectedCard:action.payload
             }
         default:
             return state;
