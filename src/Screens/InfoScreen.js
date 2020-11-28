@@ -5,17 +5,17 @@ import { ActivitySelector } from '../Redux/Reducer/Selectors'
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native'
 import { Colors } from '../Styles/AppStyles';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function InfoScreen(){
-    const { selectedCard } = useSelector(ActivitySelector)
-    // console.log(selectedCard);
+export default function InfoScreen({navigation}){
+    const { caseDetail, selectedCard } = useSelector(ActivitySelector)
+    console.log(caseDetail);
     return(
         <>
-        <View style={styles.container1}  >
-         <Ionicons name="ios-arrow-back" size={25} color="black" style={styles.backButtonContainer} />
+        <TouchableOpacity style={styles.container1} onPress={()=> navigation.navigate("Tabs")}>
+         <Ionicons name="ios-arrow-back" size={25} color="black" style={styles.backButtonContainer}  />
             <Text style={styles.textStyle1} >Info</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.container3} >
         <Button style={styles.buttonContainer} >
             <Text>View Images</Text>
@@ -26,22 +26,21 @@ export default function InfoScreen(){
         <ScrollView >
             <View style={styles.container2} >
             <Text style={styles.textStyle3} >Patient Name</Text>
-            <Text style={styles.textStyle4}>{selectedCard.patientName}</Text>
-            {selectedCard.assignedGroup !== undefined && (
+            <Text style={styles.textStyle4}>{caseDetail.patientName}</Text>
+            {caseDetail.assignedGroup !== undefined && (
                     <Text style={styles.textStyle4}>
-                      {selectedCard.assignedGroup["name"]}
+                      {caseDetail.assignedGroup["name"]}
                     </Text>
                   )}
             <View style={styles.container4} >
-            <Text style={styles.textStyle5} >{selectedCard.patientId}</Text>
-            {selectedCard.hospital !== undefined ?  (
+            <Text style={styles.textStyle5} >PatientId</Text>
+        
                     <Text style={styles.textStyle4}>
-                      {selectedCard.hospital.dicomInReport["patDob"]}                      
+                      DOB                    
                     </Text>
-                  ): <Text>*</Text> }
             </View>
             <View style={styles.container4} >
-            <Text style={styles.textStyle7} >345sdaf34</Text>
+            <Text style={styles.textStyle7} >{caseDetail.patientId}</Text>
             <Text style={styles.textStyle7} >*</Text>
             </View>
             <View style={styles.container4} >
@@ -49,8 +48,8 @@ export default function InfoScreen(){
             <Text style={styles.textStyle5} >Study</Text>
             </View>
             <View style={styles.container4} >
-            <Text style={styles.textStyle5} >{selectedCard.gender}</Text>
-            <Text style={styles.textStyle5} >{selectedCard.study}</Text>
+            <Text style={styles.textStyle5} >{caseDetail.gender}</Text>
+            <Text style={styles.textStyle5} >{caseDetail.study}</Text>
             </View>
             </View>
         </ScrollView>
@@ -61,13 +60,13 @@ export default function InfoScreen(){
             <ListItem >
                <View> 
               <Text style={styles.textStyle8} >Clinical Information</Text>
-              <Text style={styles.textStyle9} >{selectedCard.status}</Text>
+              <Text style={styles.textStyle9} >{caseDetail.status}</Text>
               </View>
             </ListItem>                    
             <ListItem>
             <View> 
               <Text style={styles.textStyle8} >Priority</Text>
-              <Text style={styles.textStyle9} >{selectedCard.priority}</Text>
+              <Text style={styles.textStyle9} >{caseDetail.priority}</Text>
               </View>
             </ListItem>
             </List>

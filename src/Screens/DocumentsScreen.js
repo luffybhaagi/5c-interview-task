@@ -5,10 +5,10 @@ import { ActivitySelector } from '../Redux/Reducer/Selectors'
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet,FlatList } from 'react-native'
 import { Colors } from '../Styles/AppStyles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function Item({item,index}){
 
-    console.log("name djfikf+++++++++"+item.name);
     return(
         <>
         <View style={styles.container6}>
@@ -23,18 +23,14 @@ function Item({item,index}){
 }
 
 export default function DocumentsScreen({navigation}){
-    const { selectedCard } = useSelector(ActivitySelector)
-    // console.log(selectedCard.images);
-    const renderItem = ({item,index})=>{
-        console.log("++++item+++++"+item);
-        <Item item={item} index={index}/>
-    }
+    const { caseDetail } = useSelector(ActivitySelector)
+    console.log(caseDetail.images);
     return(
         <>
-        <View style={styles.container1}  >
+        <TouchableOpacity style={styles.container1} onPress={()=> navigation.navigate("Tabs")} >
          <Ionicons name="ios-arrow-back" size={25} color="black" style={styles.backButtonContainer} />
             <Text style={styles.textStyle1} >Info</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.container3} >
         <Button style={styles.buttonContainer} onPress={()=>navigation.navigate("Camera")} >
             <Text>Upload File</Text>
@@ -47,7 +43,7 @@ export default function DocumentsScreen({navigation}){
             </View>
             </View>        
           <FlatList 
-          data={selectedCard.images}
+          data={caseDetail.images}
           renderItem={({item,index})=>(
               <Item item={item} index={index}/>
           )}

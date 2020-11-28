@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ActivitySelector } from "../Redux/Reducer/Selectors";
-import { getActiveList, getCaseDetail } from "../Server/Api";
+import { getActiveList, getCaseDetail, getNextActivityLimit } from "../Server/Api";
 import {
   View,
   Header,
@@ -30,53 +30,20 @@ import {
 } from "@expo/vector-icons";
 import { Appbar } from "react-native-paper";
 import moment from "moment";
-import { SelectedCardAction } from "../Redux/Reducer/ActivityReducer";
 import { Colors } from "../Styles/AppStyles";
+import BrandScreenSpinner from "../CommonUtils/BrandScreenSpinner";
 
-const Data = [
-  {
-    id: "1",
-    date: "01-jun-20",
-    userid: "5e44fc8bc0b708474abc49d7",
-    docName: "Dr.Testrad",
-    etat: null,
-    patientId: "142414.",
-    patientName: "2819 RAISA SULTANA 62Y F",
-    age: "50",
-    gender: "F",
-    study: "Leg",
-    status: "Active",
-    type: "X-Ray",
-    part: "XRay Radiograph Face XRay Radiograph FIoniconsace",
-  },
-  {
-    id: "2",
-    date: "01-jul-20",
-    userid: "5e44fc8bc0b708474abc49d7",
-    docName: "Dr.Testrad",
-    etat: null,
-    patientId: "142414.",
-    patientName: "2819 RAISA SULTANA 62Y F",
-    age: "50",
-    gender: "F",
-    study: "Leg",
-    status: "Active",
-    type: "CT",
-    part: "KUB",
-  },
-];
 
-const Item2 = ({ item, navigation }) => {
+const Item2 = ({ item, navigation,loading }) => {
     const dispatch=useDispatch()
-
-    const showSelectedDetails=(seelctedCard, navigation)=>{
-        dispatch(SelectedCardAction(seelctedCard))
-        navigation.navigate("Details")
+    const handleOnClick = (id) => {
+      getCaseDetail(id, dispatch,navigation ,loading);
     }
+  
   return (
     <>
       <View style={styles.container2}>
-        <TouchableOpacity onPress={() => showSelectedDetails(item, navigation)}>
+        <TouchableOpacity onPress={() => handleOnClick(item["_id"], navigation)}>
           <Card style={{ padding: 10 }}>
             <View style={styles.dateContainer}>
               <Text style={styles.dateStyle}>
@@ -147,25 +114,36 @@ const Item2 = ({ item, navigation }) => {
 };
 
 export default function ActiveStudies({ navigation }) {
-  const [loading, setLoading] = useState(false);
+  
   const dispatch = useDispatch();
-  const { activity } = useSelector(ActivitySelector);
+  const { activity, activityLimit } = useSelector(ActivitySelector);
+  const [page,setPage]=useState(6)
+  const [loading,setLoading]=useState(false)
+  const [data,setData]=useState([])
 
-  console.log(activity.studies);
 
   useEffect(() => {
     getActiveList(dispatch, setLoading);
-  }, [dispatch, setLoading]);
+  }, [dispatch, setLoading])
 
-  const showSelectedDetails = (item, navigation) => {};
+  useEffect(()=>{
 
-  const handleOnClick = (id) => {
-    getCaseDetail(id, dispatch, setLoading);
-  };
+    setData(activityLimit)
+  },[activityLimit])
+
+
+
+  const handleNextLimit=()=>{
+    getNextActivityLimit(activity,page,dispatch)
+    setPage(page+6)
+  }
+
   const renderItem = ({ item }) => {
-    // console.log("+++++ Item ++++++"+item);
-    return <Item2 navigation={navigation} item={item} />;
+    return <Item2 navigation={navigation} item={item} loading={setLoading}/>;
   };
+
+  if(loading) return(<BrandScreenSpinner/>)
+
   return (
     <>
       <StatusBar />
@@ -185,13 +163,17 @@ export default function ActiveStudies({ navigation }) {
           <Icon name="ios-search" />
           <Input placeholder="Search" />
         </Item>
-        {/* <Text style={styles.textStyle1} >Search</Text> */}
       </Header>
       {activity.length > 0 && (
         <FlatList
-          data={activity}
+          data={data}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          onEndReached={handleNextLimit}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            <BrandScreenSpinner/>
+          }
+          keyExtractor={(item) => item._id}
         />
       )}
     </>

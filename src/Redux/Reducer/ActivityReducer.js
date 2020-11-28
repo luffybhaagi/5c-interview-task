@@ -1,4 +1,4 @@
-import { Activity_Data, Get_Case_Data, Get_Image_Id, Selected_Card, Sign_In_Data } from "./GlobalActions"
+import { Activity_Data, Get_Activity_Limit, Get_Case_Data, Get_Image_Id, Get_Next_Limit, Selected_Card, Sign_In_Data } from "./GlobalActions"
 
 
 export const SignInDataAction=(data)=>{
@@ -36,12 +36,27 @@ export const SelectedCardAction=(data)=>{
     }
 }
 
+export const getActivityLimit=(data)=>{
+    return {
+        type:Get_Activity_Limit,
+        payload:data
+    }
+}
+
+export const getActivityNextLimit=(data)=>{
+    return {
+        type:Get_Next_Limit,
+        payload:data
+    }
+}
+
 const initialState={
     user:{},
     activity:{},
     caseDetail:{},
     imageResponse:{},
-    selectedCard:{}
+    selectedCard:{},
+    activityLimit:[]
 }
 
 const ActivityReducer=(state=initialState,action)=>{
@@ -70,6 +85,16 @@ const ActivityReducer=(state=initialState,action)=>{
             return{
                 ...state,
                 selectedCard:action.payload
+            }
+        case Get_Activity_Limit:
+            return {
+                ...state,
+                activityLimit:action.payload
+            }
+        case Get_Next_Limit:
+            return {
+                ...state,
+                activityLimit:[...state.activityLimit,...action.payload]
             }
         default:
             return state;

@@ -2,6 +2,7 @@ import { Text, Input, Item, Label, Toast } from "native-base";
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
+import BrandScreenSpinner from "../CommonUtils/BrandScreenSpinner";
 import ButtonWithTxt from "../CommonUtils/ButtonWithTxt";
 import { signIn } from "../Server/Api";
 import { Colors } from "../Styles/AppStyles";
@@ -58,6 +59,8 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
+
+  if(loading) return( <BrandScreenSpinner/>)
 
   return (
     <>

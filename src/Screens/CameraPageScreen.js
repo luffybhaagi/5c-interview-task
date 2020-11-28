@@ -11,6 +11,10 @@ import { Camera } from "expo-camera";
 import { Video } from "expo-av";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Colors } from "../Styles/AppStyles";
+import { useDispatch, useSelector } from "react-redux";
+import { ActivitySelector } from "../Redux/Reducer/Selectors";
+import { uploadDocument } from "../Server/Api";
+import BrandScreenSpinner from "../CommonUtils/BrandScreenSpinner";
 
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
@@ -37,6 +41,8 @@ export default function CameraPageScreen({route,navigation}) {
   };
   const [ count,setCount ] = useState(1)
   const [isActive,setIsActive]=useState(false)
+  const {caseDetail}=useSelector(ActivitySelector)
+  const dispatch=useDispatch()
 
 
   useEffect(() => {
@@ -75,7 +81,8 @@ export default function CameraPageScreen({route,navigation}) {
           uri:source,
           type:"image/jpeg",
           name:imageName
-        }  
+        } 
+
         setUriList([...uriList,tempImage]);
       }
     }
@@ -141,13 +148,7 @@ export default function CameraPageScreen({route,navigation}) {
   const succesPreview = async () => {
     // setLoading(true)succesContainer
     //store uri list in redux on confirmation 
-    dispatch(storeUriListAction(uriList))
-    setIsPreview(false);
-    setVideoSource(null);
-    //Go To What's Happening Page.
-    await getProfileDetails(dispatch,setLoading)
-    setLoading(false)
-    ScreenNavigator(navigation,'LocationScreen1');
+    uploadDocument(uriList[0],caseDetail["_id"], uriList[0].name, navigation, dispatch, setLoading)
   };
   // const addMoreVidoes = async () => {
   //   stopVideoRecording()
@@ -218,7 +219,7 @@ export default function CameraPageScreen({route,navigation}) {
   );
 
   if(loading)
-  return <CircularSpinner/>
+  return <BrandScreenSpinner/>
 
   return (
     <>

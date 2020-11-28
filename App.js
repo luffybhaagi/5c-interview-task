@@ -1,4 +1,5 @@
 import { AppLoading } from 'expo';
+import { Audio } from 'expo-av';
 import { Camera } from 'expo-camera';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
